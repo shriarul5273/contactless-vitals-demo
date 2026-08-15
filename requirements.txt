@@ -1,0 +1,7 @@
+gradio>=5.0
+fastrtc
+av<17
+mediapipe
+opencv-python-headless
+numpy
+scipy
