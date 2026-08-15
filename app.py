@@ -248,7 +248,6 @@ APP_CSS = """
     --accent: #2563EB;
     --accent-hover: #1D4ED8;
     --accent-soft: #EFF6FF;
-    --info-soft: #F0FDFA;
     --video-bg: #111827;
 }
 
@@ -606,15 +605,6 @@ button#stop-measurement:hover,
     line-height: 1.5;
 }
 .privacy-note svg { flex: 0 0 auto; margin-top: 1px; stroke: var(--accent); }
-
-.status-panel .error {
-    border: 1px solid #FECACA !important;
-    border-radius: 8px !important;
-    color: #991B1B !important;
-    background: #FEF2F2 !important;
-    padding: 8px 12px !important;
-    box-shadow: none !important;
-}
 
 /* ---------- instructions ---------- */
 .instructions { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--border); }

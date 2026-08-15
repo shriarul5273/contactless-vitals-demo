@@ -93,13 +93,6 @@ class ForeheadROI:
             return None
         return x1, y1, x2, y2
 
-    def extract(self, frame_rgb: np.ndarray):
-        """Returns (mean_rgb, box) for the forehead patch, sampled from `frame_rgb`."""
-        box = self.detect_box(frame_rgb)
-        if box is None:
-            return None, None
-        return mean_rgb_in_box(frame_rgb, box), box
-
 
 def mean_rgb_in_box(
     frame_rgb: np.ndarray, box: tuple[int, int, int, int]
