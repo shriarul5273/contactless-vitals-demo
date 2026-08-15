@@ -14,12 +14,7 @@ import traceback
 import cv2
 import gradio as gr
 import numpy as np
-from fastrtc import (
-    AdditionalOutputs,
-    StreamHandler,
-    WebRTC,
-    get_cloudflare_turn_credentials_async,
-)
+from fastrtc import AdditionalOutputs, StreamHandler, WebRTC
 from gradio.utils import get_space
 
 logging.basicConfig(level=logging.INFO)
@@ -698,9 +693,6 @@ def _build_ui() -> tuple[gr.Blocks, WebRTC]:
                         "stop": "Stop measurement",
                         "waiting": "Starting…",
                     },
-                    rtc_configuration=(
-                        get_cloudflare_turn_credentials_async if get_space() else None
-                    ),
                     icon_button_color="#2563eb",
                     pulse_color="#2563eb",
                 )
