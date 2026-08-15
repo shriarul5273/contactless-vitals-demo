@@ -2,3 +2,6 @@
 __pycache__/
 *.pyc
 .ruff_cache/
+
+# Downloaded automatically at runtime by roi.py's _ensure_model()
+models/

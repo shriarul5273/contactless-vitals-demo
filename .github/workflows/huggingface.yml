@@ -13,13 +13,18 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - name: Add remote
+      - name: Push squashed snapshot to hub
         env:
-          HF: ${{secrets.HF_TOKEN }}
-          HFUSER: ${{secrets.HFUSER }}
-        run: git remote add space https://$HFUSER:$HF@huggingface.co/spaces/$HFUSER/contactless-vitals-demo
-      - name: Push to hub
-        env:
-          HF: ${{ secrets.HF_TOKEN}}
-          HFUSER: ${{secrets.HFUSER }}
-        run: git push --force https://$HFUSER:$HF@huggingface.co/spaces/$HFUSER/contactless-vitals-demo main
+          HF: ${{ secrets.HF_TOKEN }}
+          HFUSER: ${{ secrets.HFUSER }}
+        run: |
+          # Push a single squashed commit of the current tree rather than
+          # full history, so files that were ever committed and later
+          # removed (e.g. the model binary, downloaded at runtime instead)
+          # never reach the Space -- the Hub rejects non-LFS binaries.
+          git checkout --orphan hf-sync
+          git add -A
+          git -c user.name="github-actions[bot]" \
+              -c user.email="github-actions[bot]@users.noreply.github.com" \
+              commit -m "Sync from GitHub"
+          git push --force "https://$HFUSER:$HF@huggingface.co/spaces/$HFUSER/contactless-vitals-demo" hf-sync:main
