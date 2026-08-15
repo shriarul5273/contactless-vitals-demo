@@ -13,15 +13,17 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+          lfs: true
       - name: Push squashed snapshot to hub
         env:
           HF: ${{ secrets.HF_TOKEN }}
           HFUSER: ${{ secrets.HFUSER }}
         run: |
           # Push a single squashed commit of the current tree rather than
-          # full history, so files that were ever committed and later
-          # removed (e.g. the model binary, downloaded at runtime instead)
-          # never reach the Space -- the Hub rejects non-LFS binaries.
+          # full history: an early commit on this branch has the model
+          # binary as a plain (non-LFS) blob, which the Hub rejects, and
+          # squashing keeps that commit out of what's sent to the Space.
+          git lfs install --local
           git checkout --orphan hf-sync
           git add -A
           git -c user.name="github-actions[bot]" \
